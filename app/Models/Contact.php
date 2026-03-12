@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 class Contact extends Model
 {
@@ -45,5 +46,13 @@ class Contact extends Model
     protected function casts(): array
     {
         return [];
+    }
+
+    public function fullname()
+    {
+        $given = $this->given_name;
+        $family = $this->family_name;
+        $fullname = Str::trim($given . ' ' . $family);
+        return $fullname;
     }
 }

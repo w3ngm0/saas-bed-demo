@@ -13,10 +13,16 @@ class ContactController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * Details on Resources, Resource Collections etc.
+     * https://laravel.com/docs/12.x/eloquent-resources
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *
      */
     public function index()
     {
-        $contacts = Contact::all();
+        $contacts = Contact::paginate(2)->toResourceCollection();
         return response()->json($contacts);
     }
 
@@ -37,7 +43,11 @@ class ContactController extends Controller
     public function show(Contact $contact)
     {
         //
-        return response()->json($contact);
+        ds($contact);
+        ds($contact->toResource());
+        $result = $contact->toResource();
+        return response()->json($result);
+
     }
 
     /**

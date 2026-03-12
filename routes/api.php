@@ -8,10 +8,12 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+
 Route::prefix('v1')
     ->as('api.v1')
     ->group(function () {
         Route::apiResource('contacts', ContactController::class);
     });
+
 
 //Route::apiResource('/contacts', ContactController::class);
