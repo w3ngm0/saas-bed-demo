@@ -3,17 +3,14 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use phpDocumentor\Reflection\Types\True_;
 
-class StoreContactRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        // TODO: Modify to check authenticated
-        // TODO: Modify to check authorised / own the contact
         return true;
     }
 
@@ -25,25 +22,21 @@ class StoreContactRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'given_name' => [
+            'name' => [
                 'required',
                 'string',
                 'max:64'
             ],
-            'family_name' => [
+            'email' => [
                 'nullable',
-                    'string',
-                    'max:64'
+                'string',
+                'max:64'
             ],
-            'nick_name' => [
-                'nullable',
-                    'string',
-                    'max:32'
-            ],
-            'title' => [
-                    'string',
-                    'max:32'
-            ],
-        ];
+            'password' => [
+                'required',
+                'string',
+                'min:8'
+
+            ],];
     }
 }

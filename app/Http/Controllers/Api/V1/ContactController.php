@@ -6,8 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreContactRequest;
 use App\Http\Requests\UpdateContactRequest;
 use App\Models\Contact;
+use Dedoc\Scramble\Attributes\PathParameter;
 use Illuminate\Http\Request;
 use Illuminate\Session\Store;
+use Dedoc\Scramble\Attributes\ExcludeRouteFromDocs;
+use Dedoc\Scramble\Attributes\Endpoint;
+use Illuminate\Support\Facades\Validator;
 
 class ContactController extends Controller
 {
@@ -29,6 +33,7 @@ class ContactController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    #[ExcludeRouteFromDocs]
     public function store(StoreContactRequest $request)
     {
         $validated = $request->validated();
@@ -43,8 +48,8 @@ class ContactController extends Controller
     public function show(Contact $contact)
     {
         //
-        ds($contact);
-        ds($contact->toResource());
+//        ds($contact);
+//        ds($contact->toResource());
         $result = $contact->toResource();
         return response()->json($result);
 
@@ -53,8 +58,12 @@ class ContactController extends Controller
     /**
      * Update the specified resource in storage.
      */
+    #[PathParameter('contact', description: 'update contact', type: 'integer')]
+    #[Endpoint(method: 'PUT')]
     public function update(UpdateContactRequest $request, Contact $contact)
     {
+
+
         $validated = $request->validated();
         $contact->update($validated);
         return response()->json($contact, 200);

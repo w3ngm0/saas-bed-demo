@@ -22,7 +22,7 @@ class Contact extends Model
         'given_name',
         'family_name',
         'nick_name',
-        'title'
+        'title',
     ];
 
 
